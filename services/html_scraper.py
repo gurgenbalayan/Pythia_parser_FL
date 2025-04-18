@@ -103,9 +103,10 @@ def parse_html_details(html: str) -> dict:
                 # Ищем все теги <a> внутри таблицы
                 for a_tag in section.find_all('a', href=True):
                     href = a_tag['href']
+                    href_text = a_tag.text
                     if href.startswith('/'):
                         href = 'https://search.sunbiz.org' + href
-                    links.append(href)
+                    links.append({"name": href_text, "link": href})
                 break  # нашли нужный блок, дальше не ищем
         return links
 
