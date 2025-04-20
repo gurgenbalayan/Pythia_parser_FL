@@ -121,7 +121,7 @@ async def parse_html_details(html: str) -> dict:
     registration_number = await get_text_after_label("Document Number")
 
     # Status
-    status = await ("Status")
+    status = await get_text_after_label("Status")
 
     # Entity Type — from first <p> in corporationName
     entity_type = corp_section.find_all('p')[0].text if corp_section else ''
