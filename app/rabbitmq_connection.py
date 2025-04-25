@@ -1,8 +1,6 @@
 import aio_pika
 import os
-# from dotenv import load_dotenv
-#
-# load_dotenv()
+
 
 RABBITMQ_SETTINGS = {
     "host": os.getenv("RABBITMQ_HOST", "rabbitmq"),

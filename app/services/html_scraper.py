@@ -3,11 +3,8 @@ from bs4 import BeautifulSoup
 from utils.logger import setup_logger
 import os
 
-
 STATE = os.getenv("STATE")
 logger = setup_logger("scraper")
-
-
 
 async def fetch_company_details(url: str) -> dict:
     try:
