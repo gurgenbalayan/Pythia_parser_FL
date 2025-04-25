@@ -1,7 +1,6 @@
 import aio_pika
 import os
 
-
 RABBITMQ_SETTINGS = {
     "host": os.getenv("RABBITMQ_HOST", "rabbitmq"),
     "port": int(os.getenv("RABBITMQ_PORT", 5672)),
