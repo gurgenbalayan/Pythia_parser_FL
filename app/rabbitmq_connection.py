@@ -27,11 +27,14 @@ async def setup_rabbitmq(channel):
         aio_pika.ExchangeType.FANOUT,
         durable=True
     )
+    # Проверим, что exchange имеет имя
+    if not exchange.name:
+        raise ValueError(f"Exchange name is None. Something went wrong.")
     # Объявляем очередь
     queue = await channel.declare_queue(
         QUEUE_NAME,
         durable=True
     )
-    # Привязываем очередь к exchange
-    await queue.bind(exchange)
+    # Привязываем очередь к exchange по имени
+    await queue.bind(exchange.name)
     return queue
