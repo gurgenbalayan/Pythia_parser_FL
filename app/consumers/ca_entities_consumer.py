@@ -8,12 +8,12 @@ import os
 logger = setup_logger("consumer")
 
 RABBITMQ_SETTINGS = {
-    "host": os.getenv("RABBITMQ_HOST", "rabbitmq"),
-    "port": int(os.getenv("RABBITMQ_PORT", 5672)),
-    "login": os.getenv("RABBITMQ_USER", "guest"),
-    "password": os.getenv("RABBITMQ_PASS", "guest"),
+    "host": os.getenv("RABBITMQ_HOST"),
+    "port": int(os.getenv("RABBITMQ_PORT")),
+    "login": os.getenv("RABBITMQ_USER"),
+    "password": os.getenv("RABBITMQ_PASS"),
 }
-RESULTS_QUEUE_NAME = os.getenv("RABBITMQ_RESULTS_QUEUE", "company_parsing_results_queue")
+RESULTS_QUEUE_NAME = os.getenv("RABBITMQ_RESULTS_QUEUE")
 PARSER_ID = os.getenv("PARSER_ID")
 STATE = os.getenv("STATE")
 async def publish_result(result: dict, channel: aio_pika.Channel):
