@@ -7,7 +7,6 @@ RABBITMQ_SETTINGS = {
     "login": os.getenv("RABBITMQ_USER"),
     "password": os.getenv("RABBITMQ_PASS"),
 }
-
 EXCHANGE_NAME = os.getenv("EXCHANGE_NAME")
 QUEUE_NAME = os.getenv("QUEUE_NAME")
 
@@ -27,9 +26,7 @@ async def setup_rabbitmq(channel):
         aio_pika.ExchangeType.FANOUT,
         durable=True
     )
-    # Проверим, что exchange имеет имя
-    if not exchange.name:
-        raise ValueError(f"Exchange name is None. Something went wrong.")
+
     # Объявляем очередь
     queue = await channel.declare_queue(
         QUEUE_NAME,
