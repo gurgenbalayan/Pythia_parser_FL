@@ -11,6 +11,7 @@ EXCHANGE_NAME = os.getenv("EXCHANGE_NAME")
 QUEUE_NAME = os.getenv("QUEUE_NAME")
 
 async def get_connection():
+    print(str(RABBITMQ_SETTINGS))
     return await aio_pika.connect_robust(**RABBITMQ_SETTINGS)
 
 async def get_channel():
