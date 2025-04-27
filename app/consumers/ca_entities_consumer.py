@@ -15,6 +15,7 @@ RABBITMQ_SETTINGS = {
 }
 RESULTS_QUEUE_NAME = os.getenv("RABBITMQ_RESULTS_QUEUE", "company_parsing_results_queue")
 PARSER_ID = os.getenv("PARSER_ID")
+STATE = os.getenv("STATE")
 async def publish_result(result: dict, channel: aio_pika.Channel):
     await channel.default_exchange.publish(
         aio_pika.Message(
@@ -52,14 +53,15 @@ async def handle_message(message: aio_pika.IncomingMessage):
         try:
             payload = json.loads(message.body.decode())
             action = payload.get("action")
+            states = payload.get("states")
 
             connection = await aio_pika.connect_robust(**RABBITMQ_SETTINGS)
             channel = await connection.channel()
             await channel.declare_queue(RESULTS_QUEUE_NAME, durable=True)
 
-            if action == "search":
+            if action == "search" and (STATE in states or not states):
                 await handle_search(payload, channel)
-            elif action == "details":
+            elif action == "details" and (STATE in states or not states):
                 await handle_details(payload, channel)
             else:
                 logger.warning(f"Unknown action: {action}")
