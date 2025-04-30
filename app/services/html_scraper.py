@@ -15,7 +15,7 @@ async def fetch_company_details(url: str) -> dict:
                 return await parse_html_details(html)
     except Exception as e:
         logger.error(f"Error fetching data for query '{url}': {e}")
-        return []
+        return {}
 async def fetch_company_data(query: str) -> list[dict]:
     url = (
         f"https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults/"
